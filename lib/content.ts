@@ -369,28 +369,30 @@ export const DOCTORS_SECTION = {
     "For medical care, trust comes before conversion — so our clinicians are on the front page, not hidden behind it.",
 };
 
-// TODO: real roster, credentials, and REAL photographs (never AI) from Irina.
+// Real roster from the Doctors folder (names/titles per Ayran's file naming).
+// Landing shows 3 of 18 — the pick per specialty is editable; "best for" tags
+// are draft pending Irina's sign-off. Full roster lives in Doctors/.
 export const DOCTORS: Doctor[] = [
   {
-    name: "Dr. [Name Surname]",
-    credentials: "MD — credentials to be confirmed",
-    specialty: "Hormone & Menopause Medicine",
-    bestFor: ["Perimenopause", "BHRT", "Sleep"],
-    imageSlot: { id: "IMG-06", caption: "Real clinician portrait only — no AI, no stock" },
+    name: "Dr Valentina Ghorashi",
+    credentials: "Gynaecologist",
+    specialty: "BHRT & Holistic Women’s Health",
+    bestFor: ["Perimenopause", "BHRT", "Cycle health"],
+    imageSlot: { id: "IMG-06", caption: "Dr Valentina Ghorashi — portrait" },
   },
   {
-    name: "Dr. [Name Surname]",
-    credentials: "MD — credentials to be confirmed",
-    specialty: "Functional Medicine & Gut Health",
+    name: "Dr. Mouzayan Ginzarly",
+    credentials: "Functional Medicine",
+    specialty: "Functional Medicine & Longevity",
     bestFor: ["Gut & thyroid", "Weight", "Fatigue"],
-    imageSlot: { id: "IMG-07", caption: "Real clinician portrait only — no AI, no stock" },
+    imageSlot: { id: "IMG-07", caption: "Dr. Mouzayan Ginzarly — portrait" },
   },
   {
-    name: "Dr. [Name Surname]",
-    credentials: "MD — credentials to be confirmed",
-    specialty: "Regenerative & Longevity Medicine",
+    name: "Dr. Khalid",
+    credentials: "American Board Certified",
+    specialty: "Anti-Ageing & Regenerative Medicine",
     bestFor: ["Peptides", "Skin", "Healthy ageing"],
-    imageSlot: { id: "IMG-08", caption: "Real clinician portrait only — no AI, no stock" },
+    imageSlot: { id: "IMG-08", caption: "Dr. Khalid — portrait" },
   },
 ];
 
