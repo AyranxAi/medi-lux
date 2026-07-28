@@ -367,7 +367,41 @@ export const DOCTORS_SECTION = {
   headline: "The specialists who will actually see you",
   intro:
     "For medical care, trust comes before conversion — so our clinicians are on the front page, not hidden behind it.",
+  swipeHint: "Swipe to meet the whole team",
 };
+
+/*
+  Full expert roster — names & titles transcribed from Ayran's Doctors folder
+  filenames, in his numbering. Name spellings normalised from slugs (13, 14) —
+  confirm with Irina. role = first segment of the title, specialty = the rest.
+*/
+export type Expert = {
+  name: string;
+  role: string;
+  specialty: string;
+  img: string;
+};
+
+export const EXPERTS: Expert[] = [
+  { name: "Irina Bond", role: "Founder | CEO", specialty: "Hormone Health Educator", img: "/images/doctors/doc-01.webp" },
+  { name: "Dr Valentina Ghorashi", role: "Gynaecologist", specialty: "BHRT & Holistic Women’s Health", img: "/images/doctors/doc-02.webp" },
+  { name: "Dr. Nahla Ibrahim Elawady", role: "Gynaecologist", specialty: "BHRT · Sexual Health", img: "/images/doctors/doc-03.webp" },
+  { name: "Dr. Mouzayan Ginzarly", role: "Functional Medicine", specialty: "Functional Medicine & Longevity", img: "/images/doctors/doc-04.webp" },
+  { name: "Dr. Andrey Komissarov", role: "Internal Medicine", specialty: "Internal, Integrative & Functional Medicine", img: "/images/doctors/doc-05.webp" },
+  { name: "Dr. Diana Makovskaia", role: "Gynecologist", specialty: "Hormonal Health", img: "/images/doctors/doc-06.webp" },
+  { name: "Dr. Eslam Yakout", role: "Functional Medicine", specialty: "Functional & Regenerative Medicine", img: "/images/doctors/doc-07.webp" },
+  { name: "Ms. Richa Puri", role: "Functional Medicine", specialty: "Bioidentical Hormone Specialist", img: "/images/doctors/doc-08.webp" },
+  { name: "Dr. Walid Al-Salim", role: "Functional Medicine", specialty: "Functional & Internal Medicine", img: "/images/doctors/doc-09.webp" },
+  { name: "Dr. Ebenezer Abel Paul", role: "Physician", specialty: "Profile in progress", img: "/images/doctors/doc-10.webp" },
+  { name: "Dr. Khalid", role: "American Board Certified", specialty: "Anti-Ageing & Regenerative Medicine", img: "/images/doctors/doc-11.webp" },
+  { name: "Dr Nira Sarak", role: "Naturopathic Doctor", specialty: "Naturopathic Medicine", img: "/images/doctors/doc-12.webp" },
+  { name: "Dr. Greta Peciulyte", role: "Regenerative Medicine", specialty: "Regenerative Andrology & Aesthetics", img: "/images/doctors/doc-13.webp" },
+  { name: "Begum Demircan", role: "Clinical Dietitian", specialty: "Diabetes, Metabolic Health & Longevity", img: "/images/doctors/doc-14.webp" },
+  { name: "Dr. Vishal", role: "Psychiatrist", specialty: "Mental Health & Wellbeing", img: "/images/doctors/doc-15.webp" },
+  { name: "Dr Sarmistha", role: "Holistic Health Expert", specialty: "Subconscious Mastery", img: "/images/doctors/doc-16.webp" },
+  { name: "Ms. Sophie", role: "Nutritional Therapist", specialty: "Nutrition & Personal Training", img: "/images/doctors/doc-17.webp" },
+  { name: "Ms. Livia Rees", role: "Perimenopause", specialty: "Perimenopause Support", img: "/images/doctors/doc-18.webp" },
+];
 
 // Real roster from the Doctors folder (names/titles per Ayran's file naming).
 // Landing shows 3 of 18 — the pick per specialty is editable; "best for" tags

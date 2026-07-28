@@ -2,6 +2,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import Icon from "@/components/Icon";
+import DoctorsRail from "@/components/DoctorsRail";
 import {
   HERO,
   SYMPTOMS,
@@ -10,7 +11,6 @@ import {
   PATHWAYS_SECTION,
   METHOD,
   WHY,
-  DOCTORS,
   DOCTORS_SECTION,
   PRODUCTS_SECTION,
   EVENTS_SECTION,
@@ -295,48 +295,9 @@ export function Doctors() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {DOCTORS.map((d, i) => (
-            <Reveal key={d.imageSlot.id} delay={Math.min(i * 0.08, 0.25)}>
-              <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-ivory">
-                <ImageSlot
-                  id={d.imageSlot.id}
-                  caption={d.imageSlot.caption}
-                  tone="taupe"
-                  className="aspect-[4/4.4]"
-                  sizes="(max-width: 640px) 100vw, 30vw"
-                />
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="text-[10.5px] font-semibold tracking-[0.22em] uppercase text-gold-deep">
-                    {d.credentials}
-                  </p>
-                  <h3 className="mt-1.5 font-serif text-[23px] font-medium text-ink">
-                    {d.name}
-                  </h3>
-                  <p className="mt-1 text-[13.5px] text-ink-soft">{d.specialty}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {d.bestFor.map((t) => (
-                      <span key={t} className="chip">
-                        Best for: {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto flex items-center gap-4 pt-6">
-                    <Link href="/book" className="btn-primary !min-h-10 !px-5 !py-2 text-[12.5px]">
-                      Book with this doctor
-                    </Link>
-                    <Link
-                      href="/about#doctors"
-                      className="text-[13px] font-medium text-burgundy transition-colors hover:text-burgundy-deep"
-                    >
-                      Learn more
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={0.1} className="mt-10">
+          <DoctorsRail />
+        </Reveal>
       </div>
     </section>
   );
