@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/*
+  Medi-Gyn design tokens — single source of truth.
+  Palette per brand checklist: warm ivory / soft cream / light taupe backgrounds;
+  deep burgundy / muted rose / soft gold accents. One primary CTA color (burgundy).
+*/
+@theme inline {
+  --color-ivory: #faf7f1;
+  --color-cream: #f4ede1;
+  --color-taupe: #e9e1d2;
+  --color-line: #ded4c2;
+
+  --color-burgundy: #5c1f31;
+  --color-burgundy-deep: #471826;
+
+  --color-rose: #c79a92;
+  --color-rose-tint: #f0e1dc;
+
+  --color-gold: #c2a05e;
+  --color-gold-deep: #8a6a34; /* AA-contrast gold for small text on ivory */
+  --color-gold-tint: #f1e7d2;
+
+  --color-ink: #2e2228;
+  --color-ink-soft: #6a585f;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  @apply bg-ivory font-sans text-ink antialiased;
+}
+
+::selection {
+  @apply bg-burgundy text-ivory;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-gold-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-28;
+  }
+  .kicker {
+    @apply text-[11px] font-semibold tracking-[0.28em] uppercase text-gold-deep;
+  }
+  .h-display {
+    @apply font-serif font-medium tracking-tight text-balance;
+  }
+  /* One primary CTA color only (brand rule). Min 44px touch target. */
+  .btn-primary {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-burgundy px-7 py-3 text-sm font-medium tracking-wide text-ivory transition-colors duration-200 hover:bg-burgundy-deep;
+  }
+  .btn-secondary {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-burgundy/40 bg-transparent px-7 py-3 text-sm font-medium tracking-wide text-burgundy transition-colors duration-200 hover:border-burgundy hover:bg-burgundy/5;
+  }
+  .btn-on-burgundy {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-ivory px-7 py-3 text-sm font-medium tracking-wide text-burgundy transition-colors duration-200 hover:bg-cream;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-ivory px-3 py-1 text-[11px] font-medium tracking-wide text-ink-soft;
+  }
+}
