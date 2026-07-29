@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { EXPERTS } from "@/lib/content";
 
 /*
@@ -77,15 +76,14 @@ export default function DoctorsRail() {
             <p className="mt-0.5 text-[12.5px] leading-snug text-ink-soft">
               {e.specialty}
             </p>
-            <Link
-              href="/book"
-              className="mt-2.5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-burgundy transition-colors hover:text-burgundy-deep"
-            >
-              Book with this doctor
-              <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" aria-hidden="true">
-                <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            {/*
+              There used to be a "Book with this doctor" link on every card —
+              eighteen calls to action in one rail, on top of the header button,
+              the hero and the closing band. That is a marketplace pattern, and
+              it contradicts the one-CTA rule this site is built on. The face,
+              the name and the credential are the argument; booking happens once,
+              below.
+            */}
           </article>
         ))}
       </div>

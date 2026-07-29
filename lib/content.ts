@@ -76,13 +76,30 @@ export type HeroSlide = {
 };
 
 export const HERO = {
-  kicker: BRAND.positioning,
+  /*
+    The full positioning line ("Advanced Women's Hormone Health, Menopause &
+    Longevity Medicine") ran 768px wide here — out of the scrimmed left edge and
+    into the bright part of the photograph, where 11px type measured 2.63:1 on
+    the golden slides against the 4.5 small-text minimum. The short tagline sits
+    inside the dark zone, passes, and stops the eyebrow competing with the
+    headline for the same idea. The full line still carries the SEO weight in
+    the page title and meta description.
+  */
+  kicker: BRAND.tagline,
   headline: "Your Symptoms Are Not Random. They Are Signals.",
+  /*
+    One line. This was a four-line paragraph naming seven symptoms and four
+    disciplines — brochure work, stacked under the headline alongside two
+    buttons, a text link and a trust line: five things competing over a
+    photograph. The symptom list now does its job 900px down, in the section
+    that is actually about symptoms.
+  */
   subheadline:
-    "Medi-Gyn helps women decode the hormonal signals behind fatigue, weight changes, brain fog, poor sleep, mood shifts, low libido, and ageing-related changes through personalised hormone, menopause, functional medicine, and longevity care.",
+    "We help women decode them — with personalised hormone, menopause and longevity care.",
   primaryCta: { label: "Book Your Consultation", href: "/book" },
-  secondaryCta: { label: "Take the Hormone Symptom Quiz", href: "/quiz" },
-  tertiaryCta: { label: "Explore your care pathways", href: "#pathways" },
+  // demoted from a button to a text link: still the pressure-free entry the
+  // brief requires, no longer a second thing shouting next to the first
+  secondaryCta: { label: "Take the hormone symptom quiz", href: "/quiz" },
   trustLine: "Online consultations · Dubai & worldwide · Doctor-led review",
   slides: [
     {
@@ -99,13 +116,12 @@ export const HERO = {
       focal: "70% 35%",
       tone: "gold",
     },
-    {
-      id: "HERO-03",
-      alt: "Silhouette of a woman surrounded by flowing rose-burgundy silk veils lit softly from behind",
-      brief: "Silhouette in flowing rose-burgundy veils, backlit",
-      focal: "60% 40%",
-      tone: "rose",
-    },
+    /*
+      HERO-03 (the backlit silhouette in rose veils) has been promoted out of
+      the rotation and onto the page as the full-bleed still — see STILL below.
+      It was the most editorial frame in the set and the least suited to being
+      slide three of five, which most visitors never reach.
+    */
     {
       id: "HERO-04",
       alt: "Woman in her fifties with dark hair, eyes closed in calm composure, wearing a black wrap top against a warm terracotta wall",
@@ -121,6 +137,25 @@ export const HERO = {
       tone: "taupe",
     },
   ] satisfies HeroSlide[],
+};
+
+/* ------------------------------ the still ------------------------------ */
+
+/*
+  One full-bleed photograph with nothing to do but be looked at. Every other
+  image on this page sits inside a card, a rail, or behind text; a site that
+  wants to feel expensive has to give the eye one place to rest and one moment
+  that is not selling. It breaks the 1152px measure and the section rhythm at
+  the same time, and it lands between the Method and the Doctors — after the
+  argument, before the faces.
+
+  Swap the image by changing `id` to any slot in public/images.
+*/
+export const STILL = {
+  id: "HERO-03",
+  alt: "Silhouette of a woman surrounded by flowing rose-burgundy silk veils lit softly from behind",
+  line: "Every woman's chemistry is her own. So is her plan.",
+  focal: "62% 42%",
 };
 
 /* -------------------------------- symptoms -------------------------------- */

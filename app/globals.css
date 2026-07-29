@@ -59,8 +59,26 @@ summary:focus-visible {
   .wrap {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
+  /* Breaks the 1152px measure. Used sparingly — the Method band and the
+     full-bleed still — so the page is not one column all the way down. */
+  .wrap-wide {
+    @apply mx-auto w-full max-w-[1400px] px-5 sm:px-10;
+  }
+  /*
+    Three rhythms, not one. Every section used to be exactly 112px top and
+    bottom, and that metronome is most of what made the page read as a
+    template: nothing was allowed to be more or less important than its
+    neighbour. Now the two sections that carry the argument breathe, the
+    supporting ones tighten, and 112px is the middle default.
+  */
   .section {
     @apply py-20 sm:py-28;
+  }
+  .section-lg {
+    @apply py-24 sm:py-40;
+  }
+  .section-sm {
+    @apply py-14 sm:py-20;
   }
   .kicker {
     @apply text-[11px] font-semibold tracking-[0.28em] uppercase text-gold-deep;

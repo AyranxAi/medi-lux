@@ -137,30 +137,46 @@ export default function HeroCarouselClient({
       </motion.div>
 
       {/*
-        Neutral scrim. This used to be mixed from rgba(36,17,24) — a plum-black
-        that tinted every slide red. Same darkness, same AA headroom for the
-        ivory copy, but neutral grey-black so the photograph's own colour comes
-        through instead of the overlay's.
+        Scrim, bottom-anchored.
+
+        This was a 90deg wash running 0.84 → 0.12 left to right, and it was
+        fighting the photograph: 84% black buried the warm backlit left two
+        thirds in grey-brown, and because it thinned to 12% exactly where the
+        frame brightens, a hard tonal seam ran down the middle of the screen at
+        desktop widths. Luxury heroes do not scrim, they compose — so the
+        darkness now sits along the bottom, under the type, and the top ~40% of
+        every frame — where the subject's face is — is left alone entirely.
+
+        The ramp is deliberately steep rather than gentle. Two earlier passes
+        were too kind to the photograph and failed the copy: 0.78→0.22 made the
+        ivory headline vanish into the sunlit curtains on HERO-01, and 0.88→0.30
+        still measured 2.81:1 on HERO-02 (large text needs 3:1). The copy block
+        occupies the bottom ~40% of the frame, so alpha has to stay ≥0.5 to
+        50% height — that is what these stops do, and everything above it, the
+        subject's face included, is still untouched.
       */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(20,20,20,0.84)_0%,rgba(20,20,20,0.62)_40%,rgba(20,20,20,0.3)_70%,rgba(20,20,20,0.12)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(18,16,17,0.9)_0%,rgba(18,16,17,0.86)_20%,rgba(18,16,17,0.72)_35%,rgba(18,16,17,0.5)_50%,rgba(18,16,17,0.22)_70%,rgba(18,16,17,0)_92%)]"
       />
+      {/* a whisper of weight on the left so the headline never sits on a
+          blown-out highlight — 42% at the very edge, gone by two thirds */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(0deg,rgba(20,20,20,0.45)_0%,rgba(20,20,20,0)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(100deg,rgba(18,16,17,0.42)_0%,rgba(18,16,17,0.18)_38%,rgba(18,16,17,0)_68%)]"
       />
-      {/* the side scrim thins out to 12% on the right, where the nav sits —
-          this top band keeps the transparent header readable across its width */}
+      {/* keeps the transparent header legible across its full width */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(20,20,20,0.7)_0%,rgba(20,20,20,0.25)_45%,rgba(20,20,20,0)_100%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(18,16,17,0.5)_0%,rgba(18,16,17,0.18)_45%,rgba(18,16,17,0)_100%)]"
       />
 
-      {/* in-flow on mobile so the hero grows with the copy; padding clears header and dots */}
-      <div className="pointer-events-none relative z-10 flex min-h-[inherit] items-center sm:h-full">
-        {/* py clears the overlaying 72px header above and the dots below */}
-        <div className="wrap w-full pt-28 pb-28 sm:py-28">{children}</div>
+      {/* in-flow on mobile so the hero grows with the copy; padding clears header and dots.
+          Copy sits at the foot of the frame now rather than centred — it rides the
+          scrim instead of floating over the middle of the photograph. */}
+      <div className="pointer-events-none relative z-10 flex min-h-[inherit] items-end sm:h-full">
+        {/* pb clears the dots; pt clears the overlaying 72px header on mobile */}
+        <div className="wrap w-full pt-28 pb-20 sm:pt-28 sm:pb-24">{children}</div>
       </div>
 
       {n > 1 && (
