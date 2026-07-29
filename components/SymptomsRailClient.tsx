@@ -42,7 +42,7 @@ type Quiz = {
   cta: { label: string; href: string };
 };
 
-const CARD_W = "w-[276px] shrink-0 snap-start sm:w-[320px] lg:w-[360px]";
+const CARD_W = "w-[320px] shrink-0 snap-start sm:w-[384px] lg:w-[440px]";
 
 export default function SymptomsRailClient({
   cards,
@@ -164,7 +164,7 @@ export default function SymptomsRailClient({
                 src={c.src}
                 alt={`${c.name} — ${c.brief}`}
                 fill
-                sizes="(max-width: 640px) 276px, (max-width: 1024px) 320px, 360px"
+                sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 440px"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             ) : (
@@ -183,17 +183,17 @@ export default function SymptomsRailClient({
               className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(36,17,24,0.92)_0%,rgba(36,17,24,0.6)_32%,rgba(36,17,24,0.1)_62%,rgba(36,17,24,0)_80%)]"
             />
 
-            <div className="absolute inset-x-0 bottom-0 p-6">
+            <div className="absolute inset-x-0 bottom-0 p-7 sm:p-8">
               <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/50">
                 <Icon
                   name={CATEGORY_ICONS[c.category] ?? "sparkle"}
                   className="h-4 w-4 text-gold"
                 />
               </span>
-              <h3 className="mt-4 font-serif text-[27px] leading-tight font-medium text-ivory">
+              <h3 className="mt-4 font-serif text-[31px] leading-tight font-medium text-ivory">
                 {c.name}
               </h3>
-              <p className="mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-ivory/80">
+              <p className="mt-2 max-w-[32ch] text-[13.5px] leading-relaxed text-ivory/80">
                 {c.signal}
               </p>
               {/* styled like a button but decorative — the whole card is the link */}
@@ -210,9 +210,9 @@ export default function SymptomsRailClient({
         {/* quiz stays in the rail so the routing CTA survives the restyle */}
         <Link
           href={quiz.cta.href}
-          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-2xl bg-burgundy p-6 transition-colors hover:bg-burgundy-deep ${CARD_W}`}
+          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-2xl bg-burgundy p-7 transition-colors hover:bg-burgundy-deep sm:p-8 ${CARD_W}`}
         >
-          <h3 className="font-serif text-[27px] leading-tight font-medium text-ivory">
+          <h3 className="font-serif text-[31px] leading-tight font-medium text-ivory">
             {quiz.title}
           </h3>
           <p className="mt-1.5 text-[13px] leading-relaxed text-ivory/75">

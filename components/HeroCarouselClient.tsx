@@ -136,20 +136,25 @@ export default function HeroCarouselClient({
         ))}
       </motion.div>
 
-      {/* warm scrim so ivory copy stays AA-readable over every slide */}
+      {/*
+        Neutral scrim. This used to be mixed from rgba(36,17,24) — a plum-black
+        that tinted every slide red. Same darkness, same AA headroom for the
+        ivory copy, but neutral grey-black so the photograph's own colour comes
+        through instead of the overlay's.
+      */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(36,17,24,0.84)_0%,rgba(36,17,24,0.62)_40%,rgba(36,17,24,0.3)_70%,rgba(36,17,24,0.12)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(20,20,20,0.84)_0%,rgba(20,20,20,0.62)_40%,rgba(20,20,20,0.3)_70%,rgba(20,20,20,0.12)_100%)]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink/45 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(0deg,rgba(20,20,20,0.45)_0%,rgba(20,20,20,0)_100%)]"
       />
       {/* the side scrim thins out to 12% on the right, where the nav sits —
           this top band keeps the transparent header readable across its width */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/70 via-ink/25 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(20,20,20,0.7)_0%,rgba(20,20,20,0.25)_45%,rgba(20,20,20,0)_100%)]"
       />
 
       {/* in-flow on mobile so the hero grows with the copy; padding clears header and dots */}
