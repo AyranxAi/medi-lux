@@ -34,7 +34,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+    // data-scroll-behavior: Next 16 no longer overrides the global
+    // `scroll-behavior: smooth` on route changes unless asked — without it,
+    // navigating away from a scrolled page visibly scrolls instead of jumping.
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${inter.variable}`}
+    >
       <body>
         <a
           href="#main"

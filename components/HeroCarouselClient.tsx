@@ -72,7 +72,7 @@ export default function HeroCarouselClient({
       role="region"
       aria-roledescription="carousel"
       aria-label="Medi-Gyn — women in every stage of hormonal health"
-      className="relative min-h-[76svh] w-full overflow-hidden sm:h-[76svh] sm:max-h-[820px] sm:min-h-[560px]"
+      className="relative min-h-[100svh] w-full overflow-hidden sm:h-[100svh] sm:min-h-[640px]"
       onMouseEnter={() => setEngaged(true)}
       onMouseLeave={() => setEngaged(false)}
       onFocusCapture={() => setEngaged(true)}
@@ -145,10 +145,17 @@ export default function HeroCarouselClient({
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink/45 to-transparent"
       />
+      {/* the side scrim thins out to 12% on the right, where the nav sits —
+          this top band keeps the transparent header readable across its width */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/70 via-ink/25 to-transparent"
+      />
 
       {/* in-flow on mobile so the hero grows with the copy; padding clears header and dots */}
       <div className="pointer-events-none relative z-10 flex min-h-[inherit] items-center sm:h-full">
-        <div className="wrap w-full pt-20 pb-24 sm:py-10">{children}</div>
+        {/* py clears the overlaying 72px header above and the dots below */}
+        <div className="wrap w-full pt-28 pb-28 sm:py-28">{children}</div>
       </div>
 
       {n > 1 && (
