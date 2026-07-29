@@ -54,7 +54,33 @@ the headline scrim.
 | IMG-09 | Events / menoSTART | 4:3 | Small warm gathering of five diverse women 40–60 in a bright elegant salon, candid laughter, tea and notebooks, golden-hour light |
 | IMG-10 | About / founder (arch frame) | 3:4 portrait | — Prefer the founder's REAL portrait. If a temporary stand-in is unavoidable, flag it visibly as placeholder — |
 
+## Symptom rail (SYM-01 → SYM-12)
+
+The "What are you experiencing?" section is a swipeable rail of 3:4 cards
+carrying the hero's treatment: full-bleed photo, warm scrim, ivory copy. The
+symptom name and its one-line signal sit over the **bottom third** — keep that
+area free of busy detail and let the subject read in the upper two-thirds.
+
+Each card links to a care pathway, so the mood should match the symptom without
+being literal or clinical. No visible distress, no medical props.
+
+| ID | Symptom | Prompt (before suffix) |
+|----|---------|------------------------|
+| SYM-01 | Weight gain | Woman in her forties on a Mediterranean harbour terrace, linen dress, hand resting at her waist, soft dusk light |
+| SYM-02 | Fatigue | Chin resting on her hand at a sunlit desk, coffee cooling beside her, warm interior |
+| SYM-03 | Poor sleep | Awake in low lamplight, silk pyjamas, propped against hotel-white pillows |
+| SYM-04 | Brain fog | At a high window with a city skyline behind her, gaze unfocused, cool morning light |
+| SYM-05 | Mood changes | By a rain-flecked window, muted daylight, quiet unreadable expression |
+| SYM-06 | Low libido | Two hands apart on ivory bedlinen, soft morning light, no faces — suggestion, not illustration |
+| SYM-07 | PMS | Curled on a deep-toned sofa under a throw, warm lamplight, hand resting at her abdomen |
+| SYM-08 | Hot flashes | At an open balcony door lifting her hair from her neck, evening breeze, warm backlight |
+| SYM-09 | Hair thinning | At a gold-framed vanity mirror, fingers through her hair, warm bathroom light |
+| SYM-10 | Gut issues | Herbal tea at a marble kitchen counter, hand resting just below her ribs |
+| SYM-11 | Skin ageing | Close portrait in soft window light, bare skin, fine lines visible and unretouched |
+| SYM-12 | PCOS / cycle irregularity | A journal and calendar open on a linen bedspread, her hand pausing over a marked date |
+
 ## Export settings
 
 - Generate at 2048px on the long edge minimum, export **WebP quality ~82**.
-- Name exactly `IMG-01.webp` … `IMG-10.webp` in `public/images/`.
+- Name exactly `IMG-01.webp` … `IMG-10.webp`, `HERO-01.webp` … `HERO-05.webp`,
+  and `SYM-01.webp` … `SYM-12.webp` in `public/images/`.

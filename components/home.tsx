@@ -4,9 +4,9 @@ import ImageSlot from "@/components/ImageSlot";
 import Icon from "@/components/Icon";
 import DoctorsRail from "@/components/DoctorsRail";
 import HeroCarousel from "@/components/HeroCarousel";
+import SymptomsRail from "@/components/SymptomsRail";
 import {
   HERO,
-  SYMPTOMS,
   SYMPTOMS_SECTION,
   PATHWAYS,
   PATHWAYS_SECTION,
@@ -72,9 +72,12 @@ export function Symptoms() {
   return (
     <section className="section bg-cream" aria-labelledby="symptoms-h">
       <div className="wrap">
-        <Reveal className="max-w-2xl">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="kicker">{SYMPTOMS_SECTION.kicker}</p>
-          <h2 id="symptoms-h" className="h-display mt-4 text-4xl sm:text-5xl">
+          <h2
+            id="symptoms-h"
+            className="h-display mt-4 text-4xl text-burgundy sm:text-5xl"
+          >
             {SYMPTOMS_SECTION.headline}
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
@@ -82,49 +85,9 @@ export function Symptoms() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-          {SYMPTOMS.map((s, i) => (
-            <Reveal key={s.name} delay={Math.min(i * 0.04, 0.3)}>
-              <Link
-                href={`/pathways/${s.pathway}`}
-                className="group flex h-full flex-col justify-between rounded-2xl border border-line bg-ivory p-5 transition-colors duration-200 hover:border-gold"
-              >
-                <div>
-                  <h3 className="font-serif text-[21px] font-medium text-ink">
-                    {s.name}
-                  </h3>
-                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-soft">
-                    {s.signal}
-                  </p>
-                </div>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold-deep transition-colors group-hover:text-burgundy">
-                  See your pathway
-                  <Icon name="arrow-right" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-
-          <Reveal delay={0.32}>
-            <Link
-              href={SYMPTOMS_SECTION.quizCard.cta.href}
-              className="group flex h-full flex-col justify-between rounded-2xl bg-burgundy p-5 text-ivory transition-colors duration-200 hover:bg-burgundy-deep"
-            >
-              <div>
-                <h3 className="font-serif text-[21px] font-medium">
-                  {SYMPTOMS_SECTION.quizCard.title}
-                </h3>
-                <p className="mt-1.5 text-[12.5px] leading-relaxed text-ivory/75">
-                  {SYMPTOMS_SECTION.quizCard.body}
-                </p>
-              </div>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold">
-                {SYMPTOMS_SECTION.quizCard.cta.label}
-                <Icon name="arrow-right" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          </Reveal>
-        </div>
+        <Reveal delay={0.08} className="mt-12">
+          <SymptomsRail />
+        </Reveal>
       </div>
     </section>
   );

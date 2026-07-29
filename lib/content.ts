@@ -125,21 +125,34 @@ export const HERO = {
 
 /* -------------------------------- symptoms -------------------------------- */
 
-export type Symptom = { name: string; signal: string; pathway: string };
+/*
+  `img` is a drop-a-file slot like every other image on the site: land
+  public/images/SYM-XX.webp and the card renders the photo; until then it shows
+  the toned placeholder carrying `brief` (the shot brief, mirrored in
+  IMAGE_PROMPTS.md). `tone` only colours that placeholder.
+*/
+export type Symptom = {
+  name: string;
+  signal: string;
+  pathway: string;
+  img: string;
+  brief: string;
+  tone: "rose" | "gold" | "taupe";
+};
 
 export const SYMPTOMS: Symptom[] = [
-  { name: "Weight gain", signal: "Often metabolic and hormonal — not a willpower problem.", pathway: "functional-medicine" },
-  { name: "Fatigue", signal: "When rest doesn’t restore you, hormones may be why.", pathway: "hormone-therapy" },
-  { name: "Poor sleep", signal: "Night waking and early waking have hormonal patterns.", pathway: "menopause-care" },
-  { name: "Brain fog", signal: "Focus and recall shift with oestrogen — and can shift back.", pathway: "menopause-care" },
-  { name: "Mood changes", signal: "Irritability and flatness can be chemistry, not character.", pathway: "hormone-therapy" },
-  { name: "Low libido", signal: "Desire is physiology as much as psychology.", pathway: "hormone-therapy" },
-  { name: "PMS", signal: "Severe cycles are a signal, not something to endure.", pathway: "hormone-therapy" },
-  { name: "Hot flashes", signal: "The classic signal — and one of the most treatable.", pathway: "menopause-care" },
-  { name: "Hair thinning", signal: "Hair follows hormones, thyroid, and nutrition.", pathway: "functional-medicine" },
-  { name: "Gut issues", signal: "The gut and your hormones regulate each other.", pathway: "functional-medicine" },
-  { name: "Skin ageing", signal: "Collagen and skin quality respond to regenerative care.", pathway: "peptide-regenerative" },
-  { name: "PCOS / cycle irregularity", signal: "Irregular cycles deserve investigation, not dismissal.", pathway: "hormone-therapy" },
+  { name: "Weight gain", signal: "Often metabolic and hormonal — not a willpower problem.", pathway: "functional-medicine", img: "SYM-01", brief: "Woman in her forties on a Mediterranean harbour terrace, linen dress, hand at her waist, soft dusk light", tone: "gold" },
+  { name: "Fatigue", signal: "When rest doesn’t restore you, hormones may be why.", pathway: "hormone-therapy", img: "SYM-02", brief: "Chin resting on her hand at a sunlit desk, coffee cooling beside her, warm interior", tone: "taupe" },
+  { name: "Poor sleep", signal: "Night waking and early waking have hormonal patterns.", pathway: "menopause-care", img: "SYM-03", brief: "Awake in low lamplight, silk pyjamas, propped against hotel-white pillows", tone: "rose" },
+  { name: "Brain fog", signal: "Focus and recall shift with oestrogen — and can shift back.", pathway: "menopause-care", img: "SYM-04", brief: "At a high window with a city skyline behind her, gaze unfocused, cool morning light", tone: "taupe" },
+  { name: "Mood changes", signal: "Irritability and flatness can be chemistry, not character.", pathway: "hormone-therapy", img: "SYM-05", brief: "By a rain-flecked window, muted daylight, quiet unreadable expression", tone: "rose" },
+  { name: "Low libido", signal: "Desire is physiology as much as psychology.", pathway: "hormone-therapy", img: "SYM-06", brief: "Two hands apart on ivory bedlinen, soft morning light, no faces — suggestion, not illustration", tone: "rose" },
+  { name: "PMS", signal: "Severe cycles are a signal, not something to endure.", pathway: "hormone-therapy", img: "SYM-07", brief: "Curled on a deep-toned sofa under a throw, warm lamplight, hand resting at her abdomen", tone: "gold" },
+  { name: "Hot flashes", signal: "The classic signal — and one of the most treatable.", pathway: "menopause-care", img: "SYM-08", brief: "At an open balcony door lifting her hair from her neck, evening breeze, warm backlight", tone: "gold" },
+  { name: "Hair thinning", signal: "Hair follows hormones, thyroid, and nutrition.", pathway: "functional-medicine", img: "SYM-09", brief: "At a gold-framed vanity mirror, fingers through her hair, warm bathroom light", tone: "gold" },
+  { name: "Gut issues", signal: "The gut and your hormones regulate each other.", pathway: "functional-medicine", img: "SYM-10", brief: "Herbal tea at a marble kitchen counter, hand resting just below her ribs", tone: "taupe" },
+  { name: "Skin ageing", signal: "Collagen and skin quality respond to regenerative care.", pathway: "peptide-regenerative", img: "SYM-11", brief: "Close portrait in soft window light, bare skin, fine lines visible and unretouched", tone: "rose" },
+  { name: "PCOS / cycle irregularity", signal: "Irregular cycles deserve investigation, not dismissal.", pathway: "hormone-therapy", img: "SYM-12", brief: "A journal and calendar open on a linen bedspread, her hand pausing over a marked date", tone: "taupe" },
 ];
 
 export const SYMPTOMS_SECTION = {
