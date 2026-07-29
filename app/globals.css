@@ -78,6 +78,10 @@ summary:focus-visible {
   .btn-on-burgundy {
     @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-ivory px-7 py-3 text-sm font-medium tracking-wide text-burgundy transition-colors duration-200 hover:bg-cream;
   }
+  /* Secondary action over dark imagery (hero scrim) — outline, per one-CTA rule. */
+  .btn-outline-ivory {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-ivory/50 bg-transparent px-7 py-3 text-sm font-medium tracking-wide text-ivory transition-colors duration-200 hover:border-ivory hover:bg-ivory/10;
+  }
   .chip {
     @apply inline-flex items-center rounded-full border border-line bg-ivory px-3 py-1 text-[11px] font-medium tracking-wide text-ink-soft;
   }
