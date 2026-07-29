@@ -49,17 +49,19 @@ export default function Header() {
             : "border-line bg-ivory/90 backdrop-blur-md"
         }`}
       >
-        <div className="wrap flex h-[72px] items-center justify-between gap-6">
+        {/* wider than `wrap` (max-w-6xl): the larger logo and nav type don't
+            fit 1152px at the xl breakpoint where the desktop nav appears */}
+        <div className="mx-auto flex h-[88px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
           <Logo mono={clear} className={clear ? "text-ivory" : ""} />
 
           {/* Desktop nav */}
-          <nav aria-label="Main" className="hidden items-center gap-6 xl:flex">
+          <nav aria-label="Main" className="hidden items-center gap-4 xl:flex 2xl:gap-6">
             {NAV.map((item) =>
               item.submenu ? (
                 <div key={item.label} className="group relative">
                   <Link
                     href={item.href}
-                    className={`inline-flex items-center gap-1 py-2 text-[13px] font-medium whitespace-nowrap transition-colors ${linkTone}`}
+                    className={`inline-flex items-center gap-1 py-2 text-[14.5px] font-medium whitespace-nowrap transition-colors ${linkTone}`}
                   >
                     {item.label}
                     <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" aria-hidden="true">
@@ -89,7 +91,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`py-2 text-[13px] font-medium whitespace-nowrap transition-colors ${linkTone}`}
+                  className={`py-2 text-[14.5px] font-medium whitespace-nowrap transition-colors ${linkTone}`}
                 >
                   {item.label}
                 </Link>
@@ -123,7 +125,7 @@ export default function Header() {
         {open && (
           <nav
             aria-label="Mobile"
-            className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-72px)] overflow-y-auto bg-ivory px-5 pb-10 pt-4 xl:hidden"
+            className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-88px)] overflow-y-auto bg-ivory px-5 pb-10 pt-4 xl:hidden"
           >
             <ul className="divide-y divide-line">
               {NAV.map((item) => (
@@ -167,7 +169,7 @@ export default function Header() {
       </header>
 
       {/* The bar is fixed, so non-hero routes need their 72px back in the flow. */}
-      {!overlays && <div aria-hidden="true" className="h-[72px]" />}
+      {!overlays && <div aria-hidden="true" className="h-[88px]" />}
     </>
   );
 }

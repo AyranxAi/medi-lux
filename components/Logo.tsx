@@ -71,7 +71,7 @@ export default function Logo({
       className={`inline-flex items-center ${className}`}
       aria-label="Medi-Gyn — home"
     >
-      <LogoMark mono={mono} className="h-8 w-auto sm:h-9" />
+      <LogoMark mono={mono} className="h-10 w-auto sm:h-11 2xl:h-12" />
     </Link>
   );
 }

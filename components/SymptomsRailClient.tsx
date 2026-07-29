@@ -94,7 +94,7 @@ export default function SymptomsRailClient({
           <Link
             key={c.img}
             href={`/pathways/${c.pathway}`}
-            className={`group relative aspect-[3/4] overflow-hidden rounded-3xl ${CARD_W}`}
+            className={`group relative aspect-[3/4] overflow-hidden rounded-3xl ring-1 ring-ivory/10 ${CARD_W}`}
           >
             {c.src ? (
               <Image
@@ -135,15 +135,15 @@ export default function SymptomsRailClient({
         {/* quiz stays in the rail so the routing CTA survives the restyle */}
         <Link
           href={quiz.cta.href}
-          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl bg-burgundy p-6 transition-colors hover:bg-burgundy-deep ${CARD_W}`}
+          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl bg-ivory p-6 transition-colors hover:bg-cream ${CARD_W}`}
         >
-          <h3 className="font-serif text-[26px] leading-tight font-medium text-ivory">
+          <h3 className="font-serif text-[26px] leading-tight font-medium text-burgundy">
             {quiz.title}
           </h3>
-          <p className="mt-1.5 text-[13px] leading-relaxed text-ivory/75">
+          <p className="mt-1.5 text-[13px] leading-relaxed text-ink-soft">
             {quiz.body}
           </p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold">
+          <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold-deep">
             {quiz.cta.label}
             <svg viewBox="0 0 24 24" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" aria-hidden="true">
               <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -191,7 +191,7 @@ export default function SymptomsRailClient({
               <span
                 aria-hidden="true"
                 className={`h-2 w-2 rounded-full transition-colors duration-300 ${
-                  i === page ? "bg-burgundy" : "bg-line group-hover:bg-rose"
+                  i === page ? "bg-gold" : "bg-ivory/25 group-hover:bg-ivory/50"
                 }`}
               />
             </button>
