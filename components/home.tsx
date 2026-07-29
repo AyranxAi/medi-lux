@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import ImageSlot from "@/components/ImageSlot";
 import Icon from "@/components/Icon";
 import DoctorsRail from "@/components/DoctorsRail";
+import HeroCarousel from "@/components/HeroCarousel";
 import {
   HERO,
   SYMPTOMS,
@@ -21,62 +22,46 @@ import {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="wrap grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.85fr] lg:gap-16 lg:py-24">
-        <div>
+    <section className="relative">
+      <HeroCarousel>
+        <div className="max-w-2xl">
           <Reveal>
-            <p className="kicker">{HERO.kicker}</p>
+            <p className="kicker text-gold">{HERO.kicker}</p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="h-display mt-5 text-[42px] leading-[1.04] sm:text-6xl lg:text-[64px]">
+            <h1 className="h-display mt-5 text-[42px] leading-[1.04] text-ivory sm:text-6xl lg:text-[64px]">
               {HERO.headline}
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-ink-soft">
+            <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-ivory/85">
               {HERO.subheadline}
             </p>
           </Reveal>
           <Reveal delay={0.24}>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href={HERO.primaryCta.href} className="btn-primary">
+            <div className="pointer-events-auto mt-9 flex flex-wrap items-center gap-3">
+              <Link href={HERO.primaryCta.href} className="btn-on-burgundy">
                 {HERO.primaryCta.label}
               </Link>
-              <Link href={HERO.secondaryCta.href} className="btn-secondary">
+              <Link href={HERO.secondaryCta.href} className="btn-outline-ivory">
                 {HERO.secondaryCta.label}
               </Link>
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
               <a
                 href={HERO.tertiaryCta.href}
-                className="inline-flex items-center gap-2 text-[13px] font-medium text-gold-deep transition-colors hover:text-burgundy"
+                className="pointer-events-auto inline-flex items-center gap-2 text-[13px] font-medium text-gold-tint transition-colors hover:text-ivory"
               >
                 {HERO.tertiaryCta.label}
                 <Icon name="arrow-right" className="h-3.5 w-3.5" />
               </a>
-              <p className="text-[12px] tracking-wide text-ink-soft/80">
+              <p className="text-[12px] tracking-wide text-ivory/70">
                 {HERO.trustLine}
               </p>
             </div>
           </Reveal>
         </div>
-
-        <Reveal delay={0.15} className="relative mx-auto w-full max-w-md lg:max-w-none">
-          {/* offset gold hairline echoes the arch */}
-          <div
-            aria-hidden="true"
-            className="absolute -inset-3 rounded-b-[28px] rounded-t-[999px] border border-gold/50"
-          />
-          <ImageSlot
-            id={HERO.imageSlot.id}
-            caption={HERO.imageSlot.caption}
-            tone="rose"
-            priority
-            className="aspect-[3/4] rounded-b-[24px] rounded-t-[999px]"
-            sizes="(max-width: 1024px) 90vw, 40vw"
-          />
-        </Reveal>
-      </div>
+      </HeroCarousel>
     </section>
   );
 }

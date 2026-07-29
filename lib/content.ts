@@ -67,6 +67,14 @@ export const NAV: NavItem[] = [
 
 /* ---------------------------------- hero ---------------------------------- */
 
+export type HeroSlide = {
+  id: string; // file slot — drop the image at public/images/<id>.webp
+  alt: string; // alt text once the real file is in place
+  brief: string; // what belongs in this slot, shown on the placeholder
+  focal: string; // CSS object-position keeping the subject in frame when cropped
+  tone: "rose" | "gold" | "taupe";
+};
+
 export const HERO = {
   kicker: BRAND.positioning,
   headline: "Your Symptoms Are Not Random. They Are Signals.",
@@ -76,10 +84,43 @@ export const HERO = {
   secondaryCta: { label: "Take the Hormone Symptom Quiz", href: "/quiz" },
   tertiaryCta: { label: "Explore your care pathways", href: "#pathways" },
   trustLine: "Online consultations · Dubai & worldwide · Doctor-led review",
-  imageSlot: {
-    id: "IMG-01",
-    caption: "Hero — real woman 40–60, natural light, confident & warm (portrait)",
-  },
+  slides: [
+    {
+      id: "HERO-01",
+      alt: "Woman around fifty with long silver-blonde hair among sunlit sheer ivory curtains, glancing back with quiet confidence",
+      brief: "Silver-blonde woman in sunlit sheer curtains, warm golden light",
+      focal: "68% 30%",
+      tone: "gold",
+    },
+    {
+      id: "HERO-02",
+      alt: "Serene profile of a woman bathed in warm golden light, eyes closed, beside a delicate translucent molecular structure",
+      brief: "Golden profile with floating molecule — science meets calm",
+      focal: "70% 35%",
+      tone: "gold",
+    },
+    {
+      id: "HERO-03",
+      alt: "Silhouette of a woman surrounded by flowing rose-burgundy silk veils lit softly from behind",
+      brief: "Silhouette in flowing rose-burgundy veils, backlit",
+      focal: "60% 40%",
+      tone: "rose",
+    },
+    {
+      id: "HERO-04",
+      alt: "Woman in her fifties with dark hair, eyes closed in calm composure, wearing a black wrap top against a warm terracotta wall",
+      brief: "Calm portrait on terracotta wall, black wrap top",
+      focal: "70% 35%",
+      tone: "rose",
+    },
+    {
+      id: "HERO-05",
+      alt: "Warm consultation between a clinician and a smiling patient in an ivory suite with white roses",
+      brief: "Doctor–patient consultation, ivory suite, white roses",
+      focal: "65% 45%",
+      tone: "taupe",
+    },
+  ] satisfies HeroSlide[],
 };
 
 /* -------------------------------- symptoms -------------------------------- */

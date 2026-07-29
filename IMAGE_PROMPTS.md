@@ -20,11 +20,30 @@ toned placeholder showing its ID and shot brief.
 > visible natural skin texture, no heavy retouching, calm confident expression,
 > Kinfolk / luxury-clinic aesthetic, no text, no logos
 
+## Hero rotation (HERO-01 → HERO-05)
+
+The homepage hero is a full-width slider that auto-advances every 5 seconds
+(pauses on hover/focus, supports swipe, stops under reduced-motion). The five
+approved images are in place at `public/images/HERO-0X.webp` (WebP q82,
+converted from the uploads at the repo root). To replace one, drop a new
+16:9 landscape WebP over the same filename:
+
+| ID | Image |
+|----|-------|
+| HERO-01 | Silver-blonde woman among sunlit sheer ivory curtains, warm golden light |
+| HERO-02 | Golden profile, eyes closed, translucent molecule structure beside her |
+| HERO-03 | Silhouette in flowing rose-burgundy veils, backlit |
+| HERO-04 | Calm dark-haired woman, black wrap top, terracotta wall |
+| HERO-05 | Doctor–patient consultation in ivory suite, white roses |
+
+Keep the main subject in the right two-thirds of frame — the left side carries
+the headline scrim.
+
 ## Slots
 
 | ID | Where | Aspect | Prompt (before suffix) |
 |----|-------|--------|------------------------|
-| IMG-01 | Homepage hero (arch frame) | 3:4 portrait | Confident woman around 50, natural silver-streaked hair, linen blouse in muted rose, seated near a large window in a warm ivory interior, looking toward camera with quiet warmth — "confident & warm", per the brief's own hero note |
+| IMG-01 | ~~Homepage hero (arch frame)~~ superseded by the HERO-01…05 rotation above | 3:4 portrait | Confident woman around 50, natural silver-streaked hair, linen blouse in muted rose, seated near a large window in a warm ivory interior, looking toward camera with quiet warmth — "confident & warm", per the brief's own hero note |
 | IMG-02 | Pathway — Hormone Therapy & BHRT | 16:7 → also used 4:3 | Woman mid-40s in soft morning light stretching by a window, cream knit top, serene energy, warm taupe bedroom |
 | IMG-03 | Pathway — Menopause Care | 16:7 → also 4:3 | Woman mid-50s laughing gently over tea at a marble kitchen counter, cashmere in ivory, warm daylight |
 | IMG-04 | Pathway — Functional Medicine | 16:7 → also 4:3 | Woman late-30s preparing a colorful healthy meal in a bright kitchen, grounded and unhurried, taupe apron |
