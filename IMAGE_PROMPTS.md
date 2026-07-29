@@ -66,18 +66,18 @@ being literal or clinical. No visible distress, no medical props.
 
 | ID | Symptom | Prompt (before suffix) |
 |----|---------|------------------------|
-| SYM-01 | Weight gain | Cropped at the waist, hands working a trouser button that no longer closes, ivory tailoring, Riviera window behind — **shot supplied** |
-| SYM-02 | Fatigue | Chin resting on her hand at a sunlit desk, coffee cooling beside her, warm interior |
-| SYM-03 | Poor sleep | Awake in low lamplight, silk pyjamas, propped against hotel-white pillows |
-| SYM-04 | Brain fog | At a laptop by a balcony window, fingers at her temple, gaze drifted off the screen — **shot supplied** |
-| SYM-05 | Mood changes | By a rain-flecked window, muted daylight, quiet unreadable expression |
-| SYM-06 | Low libido | Two hands apart on ivory bedlinen, soft morning light, no faces — suggestion, not illustration |
-| SYM-07 | PMS | Curled on a deep-toned sofa under a throw, warm lamplight, hand resting at her abdomen |
-| SYM-08 | Hot flashes | Close on the neck and décolletage, hand at her throat, skin flushed, warm afternoon light — **shot supplied** |
-| SYM-09 | Hair thinning | At the mirror, both hands parting her hair to look at the scalp, soft bathroom light — **shot supplied** |
-| SYM-10 | Gut issues | Seated in a linen armchair, one hand at her cheek, the other resting flat on her abdomen, coastal light — **shot supplied** |
-| SYM-11 | Skin ageing | Close portrait in soft window light, bare skin, fine lines visible and unretouched |
-| SYM-12 | PCOS / cycle irregularity | A journal and calendar open on a linen bedspread, her hand pausing over a marked date |
+| SYM-01 | Weight gain | Cropped at the waist, hands working a trouser button that won't close, ivory tailoring, Riviera window behind — **in place** |
+| SYM-02 | Fatigue | Chin resting on her hand by a bedroom window, gaze drifting, soft daylight — **in place** |
+| SYM-03 | Poor sleep | Awake against the pillows in low lamplight, hand at her temple, night bedroom — **in place** |
+| SYM-04 | Brain fog | At a laptop by a balcony window, fingers at her temple, gaze drifted off the screen — **in place** |
+| SYM-05 | Mood changes | Head resting on her hand on a pale sofa, eyes lowered, flat and far away — **in place** |
+| SYM-06 | Low libido | In a silk robe by lamplight, hand at the back of her neck, turned inward — **in place** |
+| SYM-07 | PMS | Curled into the sofa in linen, both hands pressed to her lower abdomen, brow drawn — **in place** |
+| SYM-08 | Hot flashes | Close on the neck and décolletage, hand at her throat, skin flushed, warm afternoon light — **in place** |
+| SYM-09 | Hair thinning | At the mirror, both hands parting her hair to look at the scalp, soft bathroom light — **in place** |
+| SYM-10 | Gut issues | Seated by a Riviera window, both hands resting over a bloated stomach, ivory blouse — **in place** |
+| SYM-11 | Skin ageing | Silver-haired woman lifting both hands to her jaw and neck, luminous unretouched skin — **in place** |
+| SYM-12 | PCOS / cycle irregularity | Sitting on the bed in a robe, one hand at her cheek, the other low on her abdomen — **in place** |
 
 ## Export settings
 
