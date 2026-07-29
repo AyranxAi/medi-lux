@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import SymptomsRailClient from "@/components/SymptomsRailClient";
-import { SYMPTOMS, SYMPTOMS_SECTION } from "@/lib/content";
+import { SYMPTOMS, SYMPTOM_CATEGORIES, SYMPTOMS_SECTION } from "@/lib/content";
 
 /*
   Resolves each symptom's SYM-XX slot on disk at build time (same convention as
@@ -18,5 +18,11 @@ function findImage(id: string): string | null {
 
 export default function SymptomsRail() {
   const cards = SYMPTOMS.map((s) => ({ ...s, src: findImage(s.img) }));
-  return <SymptomsRailClient cards={cards} quiz={SYMPTOMS_SECTION.quizCard} />;
+  return (
+    <SymptomsRailClient
+      cards={cards}
+      categories={SYMPTOM_CATEGORIES}
+      quiz={SYMPTOMS_SECTION.quizCard}
+    />
+  );
 }

@@ -1,14 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Icon from "@/components/Icon";
+import type { SymptomCategory } from "@/lib/content";
 
 /*
-  Symptom rail — the hero's full-bleed treatment at card scale: photo, warm
-  scrim, ivory copy. Native scroll-snap does the movement (buttery on touch,
-  keyboard-scrollable), with hairline arrows and page dots for desktop, matching
-  the expert rail's interaction model. No carousel library.
+  Symptom rail — category filters over a scroll-snap rail of photo cards.
+  Native scroll does the movement (buttery on touch, keyboard-scrollable); the
+  arrows and dots are desktop affordances on top of it. No carousel library.
 */
 
 const TONES = {
@@ -17,10 +18,18 @@ const TONES = {
   taupe: "bg-[linear-gradient(160deg,#efe8da_0%,#e2d8c4_55%,#d3c6ac_100%)]",
 } as const;
 
+const CATEGORY_ICONS: Record<string, string> = {
+  hormones: "refresh",
+  energy: "compass",
+  metabolism: "leaf",
+  intimacy: "sparkle",
+};
+
 type Card = {
   name: string;
   signal: string;
   pathway: string;
+  category: string;
   img: string;
   brief: string;
   tone: keyof typeof TONES;
@@ -33,29 +42,37 @@ type Quiz = {
   cta: { label: string; href: string };
 };
 
-const CARD_W = "w-[300px] shrink-0 snap-start sm:w-[364px] lg:w-[420px]";
+const CARD_W = "w-[276px] shrink-0 snap-start sm:w-[320px] lg:w-[360px]";
 
 export default function SymptomsRailClient({
   cards,
+  categories,
   quiz,
 }: {
   cards: Card[];
+  categories: SymptomCategory[];
   quiz: Quiz;
 }) {
   const rail = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(categories[0]?.id ?? "all");
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const [pages, setPages] = useState(1);
   const [page, setPage] = useState(0);
 
+  const shown = useMemo(
+    () => (active === "all" ? cards : cards.filter((c) => c.category === active)),
+    [cards, active],
+  );
+
   const measure = useCallback(() => {
     const el = rail.current;
     if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
+    const total = Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth));
     setAtStart(el.scrollLeft < 8);
-    setAtEnd(el.scrollLeft > max - 8);
-    setPages(Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth)));
-    setPage(Math.min(Math.round(el.scrollLeft / el.clientWidth), Math.max(0, Math.ceil(el.scrollWidth / el.clientWidth) - 1)));
+    setAtEnd(el.scrollLeft > el.scrollWidth - el.clientWidth - 8);
+    setPages(total);
+    setPage(Math.min(Math.round(el.scrollLeft / el.clientWidth), total - 1));
   }, []);
 
   useEffect(() => {
@@ -67,41 +84,87 @@ export default function SymptomsRailClient({
     return () => ro.disconnect();
   }, [measure]);
 
+  // a new filter changes both the card count and the scroll extent
+  useEffect(() => {
+    rail.current?.scrollTo({ left: 0 });
+    measure();
+  }, [active, measure]);
+
   const nudge = (dir: 1 | -1) => {
     const el = rail.current;
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
   };
 
-  const goTo = (i: number) => {
-    const el = rail.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-  };
-
   const arrowCls =
-    "absolute top-[38%] z-10 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-line bg-ivory text-burgundy shadow-[0_10px_30px_-12px_rgba(46,34,40,0.45)] transition-colors hover:border-gold disabled:cursor-default disabled:opacity-30 sm:flex";
+    "flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-line text-burgundy transition-colors hover:border-gold disabled:cursor-default disabled:opacity-30";
 
   return (
-    <div className="relative">
+    <div>
+      {/* filters + arrows share the rule above the rail */}
+      <div className="flex flex-col gap-5 border-b border-line lg:flex-row lg:items-end lg:justify-between">
+        <div
+          role="tablist"
+          aria-label="Filter symptoms by area"
+          className="-mx-5 flex gap-5 overflow-x-auto px-5 xl:gap-7 sm:-mx-8 sm:px-8 lg:mx-0 lg:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {categories.map((c) => {
+            const on = c.id === active;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => setActive(c.id)}
+                className={`group -mb-px flex shrink-0 cursor-pointer items-center gap-2 border-b-2 pb-3.5 text-[11px] font-semibold tracking-[0.1em] xl:text-[11.5px] xl:tracking-[0.14em] whitespace-nowrap uppercase transition-colors ${
+                  on
+                    ? "border-burgundy text-burgundy"
+                    : "border-transparent text-ink-soft hover:text-burgundy"
+                }`}
+              >
+                <Icon
+                  name={c.icon}
+                  className={`h-[18px] w-[18px] transition-colors ${on ? "text-burgundy" : "text-gold-deep"}`}
+                />
+                {c.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="hidden shrink-0 gap-2 pb-3 xl:flex">
+          <button type="button" onClick={() => nudge(-1)} disabled={atStart} aria-label="Previous symptoms" className={arrowCls}>
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+              <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button type="button" onClick={() => nudge(1)} disabled={atEnd} aria-label="More symptoms" className={arrowCls}>
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
       <div
         ref={rail}
         onScroll={measure}
         aria-label="Symptoms — choose what feels closest"
-        className="-mx-5 flex snap-x gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 sm:-mx-8 sm:scroll-px-8 sm:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 mt-9 flex snap-x gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 sm:-mx-8 sm:scroll-px-8 sm:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {cards.map((c) => (
+        {shown.map((c) => (
           <Link
             key={c.img}
             href={`/pathways/${c.pathway}`}
-            className={`group relative aspect-[3/4] overflow-hidden rounded-3xl ring-1 ring-ivory/10 ${CARD_W}`}
+            className={`group relative aspect-[3/4] overflow-hidden rounded-2xl ${CARD_W}`}
           >
             {c.src ? (
               <Image
                 src={c.src}
                 alt={`${c.name} — ${c.brief}`}
                 fill
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 364px, 420px"
+                sizes="(max-width: 640px) 276px, (max-width: 1024px) 320px, 360px"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             ) : (
@@ -115,19 +178,31 @@ export default function SymptomsRailClient({
               </div>
             )}
 
-            {/* same warm scrim as the hero, so ivory copy stays AA-readable */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(36,17,24,0.92)_0%,rgba(36,17,24,0.62)_28%,rgba(36,17,24,0.12)_55%,rgba(36,17,24,0)_75%)]"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(36,17,24,0.92)_0%,rgba(36,17,24,0.6)_32%,rgba(36,17,24,0.1)_62%,rgba(36,17,24,0)_80%)]"
             />
 
-            <div className="absolute inset-x-0 bottom-0 p-7 sm:p-8">
-              <h3 className="font-serif text-[30px] leading-tight font-medium text-ivory sm:text-[34px]">
+            <div className="absolute inset-x-0 bottom-0 p-6">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/50">
+                <Icon
+                  name={CATEGORY_ICONS[c.category] ?? "sparkle"}
+                  className="h-4 w-4 text-gold"
+                />
+              </span>
+              <h3 className="mt-4 font-serif text-[27px] leading-tight font-medium text-ivory">
                 {c.name}
               </h3>
-              <p className="mt-2 max-w-[34ch] text-[14px] leading-relaxed text-ivory/80">
+              <p className="mt-1.5 max-w-[30ch] text-[13px] leading-relaxed text-ivory/80">
                 {c.signal}
               </p>
+              {/* styled like a button but decorative — the whole card is the link */}
+              <span
+                aria-hidden="true"
+                className="mt-5 flex h-10 w-10 items-center justify-center rounded-full border border-gold/50 text-gold transition-colors group-hover:border-gold group-hover:bg-gold/15"
+              >
+                <Icon name="arrow-right" className="h-4 w-4" />
+              </span>
             </div>
           </Link>
         ))}
@@ -135,55 +210,31 @@ export default function SymptomsRailClient({
         {/* quiz stays in the rail so the routing CTA survives the restyle */}
         <Link
           href={quiz.cta.href}
-          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl bg-ivory p-7 transition-colors hover:bg-cream sm:p-8 ${CARD_W}`}
+          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-2xl bg-burgundy p-6 transition-colors hover:bg-burgundy-deep ${CARD_W}`}
         >
-          <h3 className="font-serif text-[30px] leading-tight font-medium text-burgundy sm:text-[34px]">
+          <h3 className="font-serif text-[27px] leading-tight font-medium text-ivory">
             {quiz.title}
           </h3>
-          <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">
+          <p className="mt-1.5 text-[13px] leading-relaxed text-ivory/75">
             {quiz.body}
           </p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold-deep">
+          <span className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold">
             {quiz.cta.label}
-            <svg viewBox="0 0 24 24" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" aria-hidden="true">
-              <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <Icon name="arrow-right" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
           </span>
         </Link>
       </div>
 
-      <button
-        type="button"
-        onClick={() => nudge(-1)}
-        disabled={atStart}
-        aria-label="Previous symptoms"
-        className={`${arrowCls} left-0 -translate-x-1/2`}
-      >
-        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-          <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={() => nudge(1)}
-        disabled={atEnd}
-        aria-label="More symptoms"
-        className={`${arrowCls} right-0 translate-x-1/2`}
-      >
-        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-          <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-
       {pages > 1 && (
-        // one card per page on phones would mean ~10 dots; swipe is the
-        // affordance there, same as the arrows being desktop-only
         <div className="mt-8 hidden justify-center sm:flex">
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
               type="button"
-              onClick={() => goTo(i)}
+              onClick={() => {
+                const el = rail.current;
+                if (el) el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+              }}
               aria-label={`Go to symptoms ${i + 1} of ${pages}`}
               aria-current={i === page}
               className="group flex h-11 w-7 cursor-pointer items-center justify-center"
@@ -191,7 +242,7 @@ export default function SymptomsRailClient({
               <span
                 aria-hidden="true"
                 className={`h-2 w-2 rounded-full transition-colors duration-300 ${
-                  i === page ? "bg-gold" : "bg-ivory/25 group-hover:bg-ivory/50"
+                  i === page ? "bg-burgundy" : "bg-line group-hover:bg-rose"
                 }`}
               />
             </button>

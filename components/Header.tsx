@@ -1,36 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import { NAV } from "@/lib/content";
 
 /*
-  Routes that open with a full-bleed hero: the header floats over the image with
-  no background until the reader scrolls off it, then fades into the solid ivory
-  bar. Every other route keeps that solid bar from the start — ink-on-cream nav
-  text over a plain ivory page would have no contrast at all.
+  Routes that open with a full-bleed hero: at the top of those the bar has no
+  background at all. Every other route starts with the solid ivory bar — ink-on-
+  cream nav text over a plain ivory page would have no contrast at all.
 */
 const OVERLAY_ROUTES = new Set(["/"]);
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [atTop, setAtTop] = useState(true);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
   const pathname = usePathname();
 
   // trailingSlash: true means "/about/" — normalise before matching.
   const overlays = OVERLAY_ROUTES.has(pathname.replace(/\/+$/, "") || "/");
   // Menu open forces the solid bar: the mobile panel behind it is ivory.
-  const clear = overlays && !scrolled && !open;
+  const clear = overlays && atTop && !open;
 
+  /*
+    Rather than fading a solid bar in on scroll, the bar leaves entirely once
+    you start reading and comes back — with its backdrop — the moment you scroll
+    up. Over the hero it is genuinely transparent; below it there is no bar to
+    tint, because there is no bar.
+  */
   useEffect(() => {
-    if (!overlays) return;
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setAtTop(y < 24);
+      if (Math.abs(y - lastY.current) < 6) return; // ignore jitter and rubber-banding
+      setHidden(y > lastY.current && y > 240);
+      lastY.current = y;
+    };
     onScroll(); // catch a scroll position restored on reload
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [overlays]);
+  }, []);
+
+  // never hide the bar out from under an open menu
+  useEffect(() => {
+    if (open) setHidden(false);
+  }, [open]);
 
   useEffect(() => {
     setOpen(false);
@@ -43,10 +61,12 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300 ${
+        className={`fixed inset-x-0 top-0 z-40 border-b transition-[translate,background-color,border-color] duration-300 ${
+          hidden ? "-translate-y-full" : "translate-y-0"
+        } ${
           clear
             ? "border-transparent bg-transparent"
-            : "border-line bg-ivory/90 backdrop-blur-md"
+            : "border-line bg-ivory/95 backdrop-blur-md"
         }`}
       >
         {/* wider than `wrap` (max-w-6xl): the larger logo and nav type don't

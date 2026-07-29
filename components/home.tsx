@@ -70,29 +70,28 @@ export function Hero() {
 
 export function Symptoms() {
   return (
-    /* Deep burgundy→espresso band. The photo cards read as lit windows against
-       it, and it gives the page a dark → light → dark rhythm instead of three
-       ivory sections running together. */
-    <section
-      className="section bg-[linear-gradient(165deg,#471826_0%,#35202a_55%,#2e2228_100%)]"
-      aria-labelledby="symptoms-h"
-    >
+    <section className="section bg-cream" aria-labelledby="symptoms-h">
       <div className="wrap">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          {/* written out rather than `.kicker`: this section runs the label a
-              step larger and wider-tracked than the rest of the page */}
-          <p className="text-[12.5px] font-semibold tracking-[0.34em] uppercase text-gold">
-            {SYMPTOMS_SECTION.kicker}
+        <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+          <div className="max-w-3xl">
+            {/* written out rather than `.kicker`: this section runs the label a
+                step larger and wider-tracked than the rest of the page */}
+            <p className="text-[12.5px] font-semibold tracking-[0.3em] uppercase text-gold-deep">
+              {SYMPTOMS_SECTION.kicker}
+            </p>
+            <h2
+              id="symptoms-h"
+              className="h-display mt-5 text-[42px] leading-[1.02] text-burgundy sm:text-6xl lg:text-[68px]"
+            >
+              {SYMPTOMS_SECTION.headline}
+            </h2>
+          </div>
+          <p className="max-w-[30ch] text-[14px] leading-relaxed text-ink-soft lg:pb-4 lg:text-right">
+            {SYMPTOMS_SECTION.helper}
           </p>
-          <h2
-            id="symptoms-h"
-            className="h-display mt-5 text-[44px] leading-[1.05] text-ivory sm:text-6xl lg:text-7xl"
-          >
-            {SYMPTOMS_SECTION.headline}
-          </h2>
         </Reveal>
 
-        <Reveal delay={0.08} className="mt-14">
+        <Reveal delay={0.08} className="mt-12">
           <SymptomsRail />
         </Reveal>
       </div>

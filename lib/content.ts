@@ -135,31 +135,43 @@ export type Symptom = {
   name: string;
   signal: string;
   pathway: string;
+  category: string;
   img: string;
   brief: string;
   tone: "rose" | "gold" | "taupe";
 };
 
+/* The four groupings the rail filters by. "all" leads so the section still
+   opens showing every symptom — the point is to find yourself in the list. */
+export type SymptomCategory = { id: string; label: string; icon: string };
+
+export const SYMPTOM_CATEGORIES: SymptomCategory[] = [
+  { id: "all", label: "All", icon: "infinity" },
+  { id: "hormones", label: "Hormones & cycles", icon: "refresh" },
+  { id: "energy", label: "Energy, sleep & mind", icon: "compass" },
+  { id: "metabolism", label: "Metabolism & digestion", icon: "leaf" },
+  { id: "intimacy", label: "Skin, hair & intimacy", icon: "sparkle" },
+];
+
 export const SYMPTOMS: Symptom[] = [
-  { name: "Weight gain", signal: "Often metabolic and hormonal — not a willpower problem.", pathway: "functional-medicine", img: "SYM-01", brief: "Woman in her forties on a Mediterranean harbour terrace, linen dress, hand at her waist, soft dusk light", tone: "gold" },
-  { name: "Fatigue", signal: "When rest doesn’t restore you, hormones may be why.", pathway: "hormone-therapy", img: "SYM-02", brief: "Chin resting on her hand at a sunlit desk, coffee cooling beside her, warm interior", tone: "taupe" },
-  { name: "Poor sleep", signal: "Night waking and early waking have hormonal patterns.", pathway: "menopause-care", img: "SYM-03", brief: "Awake in low lamplight, silk pyjamas, propped against hotel-white pillows", tone: "rose" },
-  { name: "Brain fog", signal: "Focus and recall shift with oestrogen — and can shift back.", pathway: "menopause-care", img: "SYM-04", brief: "At a high window with a city skyline behind her, gaze unfocused, cool morning light", tone: "taupe" },
-  { name: "Mood changes", signal: "Irritability and flatness can be chemistry, not character.", pathway: "hormone-therapy", img: "SYM-05", brief: "By a rain-flecked window, muted daylight, quiet unreadable expression", tone: "rose" },
-  { name: "Low libido", signal: "Desire is physiology as much as psychology.", pathway: "hormone-therapy", img: "SYM-06", brief: "Two hands apart on ivory bedlinen, soft morning light, no faces — suggestion, not illustration", tone: "rose" },
-  { name: "PMS", signal: "Severe cycles are a signal, not something to endure.", pathway: "hormone-therapy", img: "SYM-07", brief: "Curled on a deep-toned sofa under a throw, warm lamplight, hand resting at her abdomen", tone: "gold" },
-  { name: "Hot flashes", signal: "The classic signal — and one of the most treatable.", pathway: "menopause-care", img: "SYM-08", brief: "At an open balcony door lifting her hair from her neck, evening breeze, warm backlight", tone: "gold" },
-  { name: "Hair thinning", signal: "Hair follows hormones, thyroid, and nutrition.", pathway: "functional-medicine", img: "SYM-09", brief: "At a gold-framed vanity mirror, fingers through her hair, warm bathroom light", tone: "gold" },
-  { name: "Gut issues", signal: "The gut and your hormones regulate each other.", pathway: "functional-medicine", img: "SYM-10", brief: "Herbal tea at a marble kitchen counter, hand resting just below her ribs", tone: "taupe" },
-  { name: "Skin ageing", signal: "Collagen and skin quality respond to regenerative care.", pathway: "peptide-regenerative", img: "SYM-11", brief: "Close portrait in soft window light, bare skin, fine lines visible and unretouched", tone: "rose" },
-  { name: "PCOS / cycle irregularity", signal: "Irregular cycles deserve investigation, not dismissal.", pathway: "hormone-therapy", img: "SYM-12", brief: "A journal and calendar open on a linen bedspread, her hand pausing over a marked date", tone: "taupe" },
+  { name: "Weight gain", category: "metabolism", signal: "Often metabolic and hormonal — not a willpower problem.", pathway: "functional-medicine", img: "SYM-01", brief: "Woman in her forties on a Mediterranean harbour terrace, linen dress, hand at her waist, soft dusk light", tone: "gold" },
+  { name: "Fatigue", category: "energy", signal: "When rest doesn’t restore you, hormones may be why.", pathway: "hormone-therapy", img: "SYM-02", brief: "Chin resting on her hand at a sunlit desk, coffee cooling beside her, warm interior", tone: "taupe" },
+  { name: "Poor sleep", category: "energy", signal: "Night waking and early waking have hormonal patterns.", pathway: "menopause-care", img: "SYM-03", brief: "Awake in low lamplight, silk pyjamas, propped against hotel-white pillows", tone: "rose" },
+  { name: "Brain fog", category: "energy", signal: "Focus and recall shift with oestrogen — and can shift back.", pathway: "menopause-care", img: "SYM-04", brief: "At a high window with a city skyline behind her, gaze unfocused, cool morning light", tone: "taupe" },
+  { name: "Mood changes", category: "energy", signal: "Irritability and flatness can be chemistry, not character.", pathway: "hormone-therapy", img: "SYM-05", brief: "By a rain-flecked window, muted daylight, quiet unreadable expression", tone: "rose" },
+  { name: "Low libido", category: "intimacy", signal: "Desire is physiology as much as psychology.", pathway: "hormone-therapy", img: "SYM-06", brief: "Two hands apart on ivory bedlinen, soft morning light, no faces — suggestion, not illustration", tone: "rose" },
+  { name: "PMS", category: "hormones", signal: "Severe cycles are a signal, not something to endure.", pathway: "hormone-therapy", img: "SYM-07", brief: "Curled on a deep-toned sofa under a throw, warm lamplight, hand resting at her abdomen", tone: "gold" },
+  { name: "Hot flashes", category: "hormones", signal: "The classic signal — and one of the most treatable.", pathway: "menopause-care", img: "SYM-08", brief: "At an open balcony door lifting her hair from her neck, evening breeze, warm backlight", tone: "gold" },
+  { name: "Hair thinning", category: "intimacy", signal: "Hair follows hormones, thyroid, and nutrition.", pathway: "functional-medicine", img: "SYM-09", brief: "At a gold-framed vanity mirror, fingers through her hair, warm bathroom light", tone: "gold" },
+  { name: "Gut issues", category: "metabolism", signal: "The gut and your hormones regulate each other.", pathway: "functional-medicine", img: "SYM-10", brief: "Herbal tea at a marble kitchen counter, hand resting just below her ribs", tone: "taupe" },
+  { name: "Skin ageing", category: "intimacy", signal: "Collagen and skin quality respond to regenerative care.", pathway: "peptide-regenerative", img: "SYM-11", brief: "Close portrait in soft window light, bare skin, fine lines visible and unretouched", tone: "rose" },
+  { name: "PCOS / cycle irregularity", category: "hormones", signal: "Irregular cycles deserve investigation, not dismissal.", pathway: "hormone-therapy", img: "SYM-12", brief: "A journal and calendar open on a linen bedspread, her hand pausing over a marked date", tone: "taupe" },
 ];
 
 export const SYMPTOMS_SECTION = {
-  kicker: "Start where you are",
+  kicker: "Pathways for how you feel",
   headline: "What are you experiencing?",
-  intro:
-    "Choose what feels closest. Each one leads to the care pathway designed around it — no medical vocabulary required.",
+  helper: "Select what resonates. We’ll guide you to the right starting point.",
   quizCard: {
     title: "Not sure where you fit?",
     body: "Take the two-minute symptom quiz and we’ll route you to the right starting point.",
