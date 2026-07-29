@@ -78,20 +78,21 @@ export function Symptoms() {
       aria-labelledby="symptoms-h"
     >
       <div className="wrap">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="kicker !text-gold">{SYMPTOMS_SECTION.kicker}</p>
+        <Reveal className="mx-auto max-w-4xl text-center">
+          {/* written out rather than `.kicker`: this section runs the label a
+              step larger and wider-tracked than the rest of the page */}
+          <p className="text-[12.5px] font-semibold tracking-[0.34em] uppercase text-gold">
+            {SYMPTOMS_SECTION.kicker}
+          </p>
           <h2
             id="symptoms-h"
-            className="h-display mt-4 text-4xl text-ivory sm:text-5xl"
+            className="h-display mt-5 text-[44px] leading-[1.05] text-ivory sm:text-6xl lg:text-7xl"
           >
             {SYMPTOMS_SECTION.headline}
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-ivory/70">
-            {SYMPTOMS_SECTION.intro}
-          </p>
         </Reveal>
 
-        <Reveal delay={0.08} className="mt-12">
+        <Reveal delay={0.08} className="mt-14">
           <SymptomsRail />
         </Reveal>
       </div>

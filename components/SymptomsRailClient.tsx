@@ -33,7 +33,7 @@ type Quiz = {
   cta: { label: string; href: string };
 };
 
-const CARD_W = "w-[264px] shrink-0 snap-start sm:w-[300px] lg:w-[336px]";
+const CARD_W = "w-[300px] shrink-0 snap-start sm:w-[364px] lg:w-[420px]";
 
 export default function SymptomsRailClient({
   cards,
@@ -101,7 +101,7 @@ export default function SymptomsRailClient({
                 src={c.src}
                 alt={`${c.name} — ${c.brief}`}
                 fill
-                sizes="(max-width: 640px) 264px, (max-width: 1024px) 300px, 336px"
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 364px, 420px"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             ) : (
@@ -121,11 +121,11 @@ export default function SymptomsRailClient({
               className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(36,17,24,0.92)_0%,rgba(36,17,24,0.62)_28%,rgba(36,17,24,0.12)_55%,rgba(36,17,24,0)_75%)]"
             />
 
-            <div className="absolute inset-x-0 bottom-0 p-6">
-              <h3 className="font-serif text-[26px] leading-tight font-medium text-ivory">
+            <div className="absolute inset-x-0 bottom-0 p-7 sm:p-8">
+              <h3 className="font-serif text-[30px] leading-tight font-medium text-ivory sm:text-[34px]">
                 {c.name}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-ivory/80">
+              <p className="mt-2 max-w-[34ch] text-[14px] leading-relaxed text-ivory/80">
                 {c.signal}
               </p>
             </div>
@@ -135,12 +135,12 @@ export default function SymptomsRailClient({
         {/* quiz stays in the rail so the routing CTA survives the restyle */}
         <Link
           href={quiz.cta.href}
-          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl bg-ivory p-6 transition-colors hover:bg-cream ${CARD_W}`}
+          className={`group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl bg-ivory p-7 transition-colors hover:bg-cream sm:p-8 ${CARD_W}`}
         >
-          <h3 className="font-serif text-[26px] leading-tight font-medium text-burgundy">
+          <h3 className="font-serif text-[30px] leading-tight font-medium text-burgundy sm:text-[34px]">
             {quiz.title}
           </h3>
-          <p className="mt-1.5 text-[13px] leading-relaxed text-ink-soft">
+          <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">
             {quiz.body}
           </p>
           <span className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-gold-deep">
