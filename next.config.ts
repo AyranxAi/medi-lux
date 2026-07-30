@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     // full-bleed bands want a 2560/3840 rung; the defaults stop at 1920/2048
     deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920, 2560, 3840],
+    /*
+      The care pathways accordion fingerprints each photograph into its URL as
+      `?v=<content hash>`, so that changing a file's contents changes its URL
+      and no cache in the chain can serve the previous bytes. Re-cropping a
+      pathway image is an expected edit, which is exactly when that bites.
+      Next 16 rejects query strings on local images unless the pattern is
+      declared here, so this line is what makes the hash legal.
+    */
+    localPatterns: [{ pathname: "/images/**" }],
   },
 };
 

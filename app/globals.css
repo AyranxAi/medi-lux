@@ -103,4 +103,336 @@ summary:focus-visible {
   .chip {
     @apply inline-flex items-center rounded-full border border-line bg-ivory px-3 py-1 text-[11px] font-medium tracking-wide text-ink-soft;
   }
+  /* Same shape as .chip, but reading over a photograph instead of ivory.
+     Slightly tighter than .chip so four terms stay on one row inside a 52%
+     panel at 1024 — a second row pushes the text block up into thinner scrim. */
+  .chip-on-image {
+    @apply inline-flex items-center rounded-full border border-ivory/35 bg-ivory/10 px-2.5 py-1 text-[11px] font-medium tracking-wide text-ivory;
+  }
+}
+
+/* ------------------------ Care pathways accordion ------------------------ */
+/*
+  The mechanics live here rather than in Tailwind utilities for one reason:
+  the whole component is a single animated `flex-basis` that flips from a row
+  to a column at the breakpoint, and expressing that — plus reduced motion,
+  plus the two cross-fading text layers — as arbitrary variants would be less
+  legible, not more.
+
+  This block is deliberately unlayered, so it wins over utility classes on the
+  handful of properties it owns (position, display, flex, transition). Anything
+  it does not declare — padding, colour, type — is still set with utilities on
+  the elements themselves.
+
+  The layout contract the acceptance criteria rest on: on desktop the four
+  basis values sum to exactly 100%, the panels neither grow nor shrink, and
+  the container clips. Nothing here can overflow or move the page.
+*/
+.pathways-acc {
+  --acc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --acc-width-ms: 700ms;
+  --acc-fade-ms: 440ms;
+  --acc-scrim-ms: 460ms;
+
+  /* mobile: a vertical accordion on fixed pixel rows */
+  --acc-open: 460px;
+  --acc-closed: 108px;
+
+  display: flex;
+  flex-direction: column;
+  /* fixed total height in every state — nothing below the section ever moves */
+  height: calc(var(--acc-open) + 3 * var(--acc-closed));
+}
+
+/* tablet portrait still stacks; a taller open row keeps the crops kind */
+@media (min-width: 640px) {
+  .pathways-acc {
+    --acc-open: 520px;
+    --acc-closed: 116px;
+  }
+}
+
+/*
+  1024px is the switch by measurement, not taste: below it a 16% panel is under
+  130px wide, which cannot carry a wrapped pathway title.
+*/
+@media (min-width: 1024px) {
+  .pathways-acc {
+    --acc-open: 52%;
+    --acc-closed: 16%;
+
+    flex-direction: row;
+    height: auto;
+    aspect-ratio: 2.4 / 1;
+  }
+}
+
+.pathways-acc__panel {
+  position: relative;
+  flex: 0 0 var(--acc-closed);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  transition: flex-basis var(--acc-width-ms) var(--acc-ease);
+}
+.pathways-acc__panel[data-active="true"] {
+  flex-basis: var(--acc-open);
+}
+
+/* the only internal seam: one hairline. No gaps, no per-panel radius. */
+.pathways-acc__panel + .pathways-acc__panel {
+  border-top: 1px solid rgb(250 247 241 / 0.16);
+}
+@media (min-width: 1024px) {
+  .pathways-acc__panel + .pathways-acc__panel {
+    border-top: 0;
+    border-left: 1px solid rgb(250 247 241 / 0.16);
+  }
+}
+
+/* --- image + scrims. Between them they are the entire hover behaviour: no
+       scale, no movement, nothing that could crop a face or nudge a neighbour. */
+/*
+  The two focal points come in as custom properties from the data (see
+  PathwayPanel in lib/content.ts); the breakpoint decides which one applies.
+  These two lines are the whole of the art direction — to re-crop a pathway,
+  edit the data, not this file.
+*/
+.pathways-acc__img {
+  object-position: var(--acc-op-mobile, center);
+  transition: filter var(--acc-scrim-ms) var(--acc-ease);
+}
+@media (min-width: 1024px) {
+  .pathways-acc__img {
+    object-position: var(--acc-op-desktop, center);
+  }
+}
+
+.pathways-acc__scrim {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--acc-scrim-ms) var(--acc-ease);
+}
+/*
+  Warm ink (#26191f) rather than black — a neutral scrim turns these ivory and
+  taupe photographs grey, which is the opposite of what the section is for.
+  Closed panels stay legible without going near-black; the open panel gets a
+  soft bottom gradient that has cleared entirely by half height, so the
+  photograph is the panel and the text sits on it, not in a card.
+
+  Alphas here are not eyeballed — scripts/check-pathway-contrast.mjs composites
+  each gradient over the real pixels of each photograph and measures. Re-run it
+  after changing either these stops or the object-position values.
+*/
+/*
+  Mobile and tablet closed rows are ~110px label bars with the type sitting
+  mid-height, so unlike the desktop sliver there is no thin top edge for the
+  image to breathe through, and a flat strong scrim is the only way the 19px
+  title clears 4.5:1 over pale silk and marble.
+
+  So the fade runs sideways instead. Two layers: a near-flat vertical base, and
+  a left-anchored horizontal band that clears by the right edge. Under the
+  title they multiply to ~0.9 and the type is safe; past it the base alone
+  carries, and the photograph comes back. At 768 that returns roughly the right
+  third of every closed row to being a photograph rather than a dark bar. At
+  375 the title spans most of the width and there is less to win — the
+  geometry, not the design, decides how much.
+*/
+.pathways-acc__scrim--closed {
+  background:
+    linear-gradient(
+      to right,
+      rgb(38 25 31 / 0.62) 0%,
+      rgb(38 25 31 / 0.62) 58%,
+      rgb(38 25 31 / 0) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgb(38 25 31 / 0.79) 0%,
+      rgb(38 25 31 / 0.74) 100%
+    );
+}
+@media (min-width: 1024px) {
+  .pathways-acc__scrim--closed {
+    background: linear-gradient(
+      to top,
+      rgb(38 25 31 / 0.9) 0%,
+      rgb(38 25 31 / 0.78) 40%,
+      rgb(38 25 31 / 0.5) 75%,
+      rgb(38 25 31 / 0.4) 100%
+    );
+  }
+}
+/*
+  Measured in pixels from the bottom, not percentages — and that is the whole
+  point of it.
+
+  The text it protects is a pixel-sized block (~245px, plus the 36px of padding
+  under it) while the panel's height scales with the viewport: 453px at 1440,
+  400px at 1024. A percentage ramp therefore drifts against the type it exists
+  for, and it drifted exactly far enough to fail — the same stops that measured
+  3.61:1 under "01" at 1440 measured 3.32:1 at 1024. Anchoring to the bottom
+  edge makes the gradient track the text at every width instead.
+
+  The strict bar comes from the smallest type, not the biggest: the 10px
+  pathway numeral sits highest in the block and needs 4.5:1, where the 29px
+  title beneath it only needs 3. So the ramp is shaped around the numeral, and
+  the stops below are where it actually sits — measured across every breakpoint
+  and all four pathways, it lands between 240px and 315px above the panel's
+  bottom edge, the spread coming from whether the title and the key terms wrap.
+  Hence full strength through 250px and still 0.70 at 330px.
+
+  These stops are the mobile and tablet ones, where an open row is 460–520px
+  tall and its block runs to ~300px because the key terms wrap to two lines.
+*/
+.pathways-acc__scrim--open {
+  background: linear-gradient(
+    to top,
+    rgb(38 25 31 / 0.95) 0,
+    rgb(38 25 31 / 0.92) 150px,
+    rgb(38 25 31 / 0.86) 250px,
+    rgb(38 25 31 / 0.7) 330px,
+    rgb(38 25 31 / 0.42) 400px,
+    rgb(38 25 31 / 0.14) 470px,
+    rgb(38 25 31 / 0) 100%
+  );
+}
+/*
+  Desktop gets a shorter ramp because it gets a shorter text block — the type
+  steps down between 1024 and 1280 (see the accordion component) so the block
+  lands near 270px instead of 315px.
+
+  That difference matters most at exactly 1024, where a 2.4:1 panel is only
+  400px tall: carrying the mobile ramp up there veiled the whole panel and the
+  photograph stopped being the point of the section. Tuning the type rather
+  than the scrim is what keeps 04's vial and the neck detail readable.
+*/
+@media (min-width: 1024px) {
+  .pathways-acc__scrim--open {
+    background: linear-gradient(
+      to top,
+      rgb(38 25 31 / 0.95) 0,
+      rgb(38 25 31 / 0.9) 120px,
+      rgb(38 25 31 / 0.84) 250px,
+      rgb(38 25 31 / 0.62) 310px,
+      rgb(38 25 31 / 0.34) 370px,
+      rgb(38 25 31 / 0.1) 430px,
+      rgb(38 25 31 / 0) 100%
+    );
+  }
+}
+.pathways-acc__scrim[data-show="false"] {
+  opacity: 0;
+}
+.pathways-acc__panel[data-active="false"]:hover .pathways-acc__scrim--closed,
+.pathways-acc__panel[data-active="false"]:focus-within .pathways-acc__scrim--closed {
+  opacity: 0.76;
+}
+.pathways-acc__panel[data-active="false"]:hover .pathways-acc__img,
+.pathways-acc__panel[data-active="false"]:focus-within .pathways-acc__img {
+  filter: brightness(1.07);
+}
+
+/* --- the two bottom-anchored text layers, cross-fading in place.
+       Repeating the number and title across both buys a clean fade between two
+       type sizes instead of interpolating font-size mid-transition, and only
+       ever one of them is exposed to assistive tech (the other is `inert`). */
+.pathways-acc__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* clicks fall through to the trigger beneath; the CTA opts back in */
+  pointer-events: none;
+  transition: opacity var(--acc-fade-ms) var(--acc-ease);
+}
+/* closed rows read as a single line on mobile, as a stack once upright */
+.pathways-acc__layer--closed {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.85rem;
+}
+@media (min-width: 1024px) {
+  .pathways-acc__layer--closed {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0;
+  }
+}
+.pathways-acc__layer[data-show="false"] {
+  opacity: 0;
+}
+.pathways-acc__layer[data-show="true"] {
+  opacity: 1;
+  /* let the outgoing layer clear before this one arrives */
+  transition-delay: 140ms;
+}
+
+/*
+  The gentle rise. `translate`, not `transform` — Tailwind v4 sets the
+  standalone property, so a transform transition here would animate nothing.
+*/
+.pathways-acc__rise {
+  translate: 0 12px;
+  transition:
+    translate var(--acc-fade-ms) var(--acc-ease),
+    opacity var(--acc-fade-ms) var(--acc-ease);
+}
+.pathways-acc__layer[data-show="true"] .pathways-acc__rise {
+  translate: 0 0;
+}
+.pathways-acc__layer[data-show="true"] .pathways-acc__rise:nth-child(2) {
+  transition-delay: 60ms;
+}
+.pathways-acc__layer[data-show="true"] .pathways-acc__rise:nth-child(3) {
+  transition-delay: 120ms;
+}
+.pathways-acc__layer[data-show="true"] .pathways-acc__rise:nth-child(4) {
+  transition-delay: 180ms;
+}
+.pathways-acc__layer[data-show="true"] .pathways-acc__rise:nth-child(5) {
+  transition-delay: 240ms;
+}
+
+/* the discreet "View pathway" affordance, closed panels only */
+.pathways-acc__hint {
+  opacity: 0;
+  transition: opacity 300ms var(--acc-ease);
+}
+.pathways-acc__panel[data-active="false"]:hover .pathways-acc__hint,
+.pathways-acc__panel[data-active="false"]:focus-within .pathways-acc__hint {
+  opacity: 1;
+}
+
+/* the full-panel trigger sits beneath the text layers; keep its ring inside */
+.pathways-acc__trigger {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.pathways-acc__trigger:focus-visible {
+  outline: 2px solid var(--color-gold-tint);
+  outline-offset: -6px;
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathways-acc__panel {
+    transition-duration: 1ms;
+  }
+  .pathways-acc__layer,
+  .pathways-acc__rise,
+  .pathways-acc__scrim,
+  .pathways-acc__img,
+  .pathways-acc__hint {
+    transition-duration: 140ms;
+    transition-delay: 0ms;
+  }
+  .pathways-acc__rise {
+    translate: 0 0;
+  }
 }

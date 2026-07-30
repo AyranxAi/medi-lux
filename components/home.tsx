@@ -6,11 +6,11 @@ import Icon from "@/components/Icon";
 import DoctorsRail from "@/components/DoctorsRail";
 import HeroCarousel from "@/components/HeroCarousel";
 import SymptomsRail from "@/components/SymptomsRail";
+import CarePathwaysAccordion from "@/components/CarePathwaysAccordion";
 import {
   HERO,
   STILL,
   SYMPTOMS_SECTION,
-  PATHWAYS,
   PATHWAYS_SECTION,
   METHOD,
   WHY,
@@ -127,49 +127,16 @@ export function CarePathways() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {PATHWAYS.map((p, i) => (
-            <Reveal key={p.slug} delay={Math.min(i * 0.07, 0.25)}>
-              <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-ivory">
-                <ImageSlot
-                  id={p.imageSlot.id}
-                  caption={p.imageSlot.caption}
-                  tone={p.imageSlot.tone}
-                  className="aspect-[16/7]"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                />
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-serif text-[27px] font-medium text-ink">
-                    {p.name}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">
-                    {p.whoFor}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {p.symptoms.map((sym) => (
-                      <span key={sym} className="chip">
-                        {sym}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-4 text-[12.5px] leading-relaxed text-ink-soft">
-                    <span className="font-semibold text-ink">What happens next: </span>
-                    {p.next}
-                  </p>
-                  <div className="mt-auto pt-6">
-                    <Link
-                      href={`/pathways/${p.slug}`}
-                      className="inline-flex items-center gap-2 text-[13px] font-semibold text-burgundy transition-colors hover:text-burgundy-deep"
-                    >
-                      View pathway
-                      <Icon name="arrow-right" className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        {/*
+          Was a 2×2 card grid. The four photographs were doing nothing there —
+          each one a 16:7 letterbox above a block of text, four times over. As
+          one continuous accordion they carry the section instead, and the copy
+          that used to be always-on (`whoFor`, `symptoms`, `next`) is now
+          revealed one pathway at a time. The detail pages still carry all of it.
+        */}
+        <Reveal className="mt-12">
+          <CarePathwaysAccordion />
+        </Reveal>
       </div>
     </section>
   );

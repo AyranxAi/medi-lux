@@ -216,6 +216,32 @@ export const SYMPTOMS_SECTION = {
 
 /* -------------------------------- pathways -------------------------------- */
 
+/*
+  Everything the home-page accordion needs, and nothing the detail page does.
+
+  The four photographs are portrait (~2:3 to 3:4) and the accordion asks each of
+  them to survive two very different crops: a ~1.25 landscape box when the panel
+  is open, and a ~0.38 vertical sliver when it is closed. One object-position
+  cannot always serve both — image 04 is the proof, where the vial sits right of
+  centre and falls straight out of a sliver framed on the neck. Hence the
+  optional `objectPositionDesktopInactive`, which falls back to the active value
+  when it is absent. These are the only numbers to touch when re-cropping;
+  nothing else in the component encodes a focal point.
+*/
+export type PathwayPanel = {
+  number: string;
+  /* one short line, shown only while the panel is closed */
+  shortDescription: string;
+  fullDescription: string;
+  keyTerms: string[];
+  image: { id: string; alt: string };
+  objectPositionDesktop: string;
+  objectPositionDesktopInactive?: string;
+  objectPositionMobile: string;
+  route: string;
+  defaultActive?: boolean;
+};
+
 export type Pathway = {
   slug: string;
   name: string;
@@ -228,6 +254,7 @@ export type Pathway = {
   specialistIndex: number;
   faq: { q: string; a: string }[];
   imageSlot: { id: string; caption: string; tone: "rose" | "gold" | "taupe" };
+  panel: PathwayPanel;
 };
 
 export const PATHWAYS: Pathway[] = [
@@ -265,6 +292,23 @@ export const PATHWAYS: Pathway[] = [
       },
     ],
     imageSlot: { id: "IMG-02", caption: "Pathway — woman mid-40s, morning light, quiet strength", tone: "rose" },
+    panel: {
+      number: "01",
+      shortDescription: "Energy, mood, cycles, libido",
+      fullDescription:
+        "For women whose energy, mood, cycles or libido no longer feel like their own.",
+      keyTerms: ["Fatigue", "Mood changes", "Low libido", "Cycle irregularity"],
+      image: {
+        id: "PATH-01",
+        alt: "A cream leather symptom journal and a personalised hormone report showing estradiol, progesterone and cortisol charts, with a gold pen and a glass of water on a sunlit table.",
+      },
+      /* open: journal, report charts and pen; the glass and the flower graze the edges */
+      objectPositionDesktop: "center 45%",
+      /* the sliver is narrower than the source, so only x matters here */
+      objectPositionDesktopInactive: "center center",
+      objectPositionMobile: "center 45%",
+      route: "/pathways/hormone-therapy",
+    },
   },
   {
     slug: "menopause-care",
@@ -299,6 +343,25 @@ export const PATHWAYS: Pathway[] = [
       },
     ],
     imageSlot: { id: "IMG-03", caption: "Pathway — woman mid-50s, warm daylight, at ease", tone: "gold" },
+    panel: {
+      number: "02",
+      shortDescription: "Perimenopause, menopause and beyond",
+      fullDescription:
+        "Personalised care through perimenopause, menopause and beyond.",
+      keyTerms: ["Hot flashes", "Poor sleep", "Brain fog", "Anxiety"],
+      image: {
+        id: "PATH-02",
+        alt: "A woman in cream linen standing at a sunlit window, one hand resting at her neck, looking out past a sheer curtain.",
+      },
+      /* high, so the top of her hair survives the landscape crop */
+      objectPositionDesktop: "center 16%",
+      /* the sliver frames her face rather than the window */
+      objectPositionDesktopInactive: "60% center",
+      objectPositionMobile: "center 8%",
+      route: "/pathways/menopause-care",
+      /* the one configurable default — a warm human focal point on load */
+      defaultActive: true,
+    },
   },
   {
     slug: "functional-medicine",
@@ -332,6 +395,22 @@ export const PATHWAYS: Pathway[] = [
       },
     ],
     imageSlot: { id: "IMG-04", caption: "Pathway — woman late 30s, kitchen daylight, grounded", tone: "taupe" },
+    panel: {
+      number: "03",
+      shortDescription: "Root causes, found and treated",
+      fullDescription:
+        "A deeper investigation into metabolism, digestion, thyroid health and inflammation.",
+      keyTerms: ["Gut issues", "Weight changes", "Persistent fatigue", "Hair thinning"],
+      image: {
+        id: "PATH-03",
+        alt: "A ceramic bowl of yoghurt topped with figs, blackberries, blueberries and granola with a gold spoon, beside lemon halves and a cup of coffee on a marble table.",
+      },
+      /* low enough that the bowl is never cut off at the bottom */
+      objectPositionDesktop: "center 52%",
+      objectPositionDesktopInactive: "center center",
+      objectPositionMobile: "center 56%",
+      route: "/pathways/functional-medicine",
+    },
   },
   {
     slug: "peptide-regenerative",
@@ -365,6 +444,26 @@ export const PATHWAYS: Pathway[] = [
       },
     ],
     imageSlot: { id: "IMG-05", caption: "Pathway — woman ~60, silver hair, luminous natural skin", tone: "rose" },
+    panel: {
+      number: "04",
+      shortDescription: "Recovery, resilience, vitality",
+      fullDescription:
+        "Medically supervised support for recovery, resilience, healthy ageing and vitality.",
+      keyTerms: ["Slow recovery", "Skin ageing", "Low resilience", "Long-term vitality"],
+      image: {
+        id: "PATH-04",
+        alt: "A close view of a woman's neck and shoulder in an ivory silk robe, her hand resting at her throat, beside a small unlabelled glass vial on a travertine plinth.",
+      },
+      /*
+        Sits low on purpose: the vial is the lower-right of the frame and the
+        brief is explicit that it must not leave it. The chin goes instead.
+      */
+      objectPositionDesktop: "center 64%",
+      /* the vial cannot fit a sliver framed on the neck — the neck wins */
+      objectPositionDesktopInactive: "28% center",
+      objectPositionMobile: "center 66%",
+      route: "/pathways/peptide-regenerative",
+    },
   },
 ];
 
